@@ -1,12 +1,12 @@
-FROM ubuntu:bionic
+FROM ubuntu:latest
 ENV DEBIAN_FRONTEND noninteractive
 ENV LANG C.UTF-8
 
 RUN apt-get update && apt-get install -y \
     openssh-server \
     rsync \
-&& apt-get clean \
-&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+	&& apt-get clean \
+	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Setup SSH
 # https://docs.docker.com/engine/examples/running_ssh_service/
@@ -25,3 +25,7 @@ ENTRYPOINT ["/entrypoint.sh"]
 COPY entrypoint.sh /entrypoint.sh
 COPY pipework /usr/bin/pipework
 RUN chmod 744 /entrypoint.sh
+
+#docker build -t land007/rsync-server:latest .
+#> docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t land007/rsync-server:latest --push .
+#docker run --name rsync-server -p 10873:873 -p 10822:22 -e USERNAME=land007 -e PASSWORD=1234567 -v ~/.ssh/authorized_keys:/root/.ssh/authorized_keys land007/rsync-server:latest
