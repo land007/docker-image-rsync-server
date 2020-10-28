@@ -28,4 +28,6 @@ RUN chmod 744 /entrypoint.sh
 
 #docker build -t land007/rsync-server:latest .
 #> docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t land007/rsync-server:latest --push .
-#docker run --name rsync-server -p 10873:873 -p 10822:22 -e USERNAME=land007 -e PASSWORD=1234567 -v ~/.ssh/authorized_keys:/root/.ssh/authorized_keys land007/rsync-server:latest
+#docker run -it --name rsync-server -p 10873:873 -p 10822:22 -e USERNAME=land007 -e PASSWORD=1234567 -v ~/.ssh/authorized_keys:/root/.ssh/authorized_keys land007/rsync-server:latest
+
+#docker rm -f rsync-server ; docker run -it --name rsync-server --restart=always -p 10873:873 -p 10822:22 -e USERNAME=land007 -e PASSWORD=419718 -v ~/.ssh/authorized_keys:/root/.ssh/authorized_keys -v /mnt/ecd1eda9-a0c3-48ce-84f6-d8b2b0b48918/docker/rsync-server/data:/data land007/rsync-server:latest
